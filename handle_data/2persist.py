@@ -44,7 +44,7 @@ def persist_xyz_data_to_sqlite_mock():
 
     create_db_table()
     import numpy as np
-    sample_numbers = int(90/0.015)
+    sample_numbers = int(90/0.022)
     print(sample_numbers)
     all_latitudes = np.linspace(-90, 90, num=sample_numbers)
     print(all_latitudes)
