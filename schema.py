@@ -4,7 +4,7 @@ from marshmallow import Schema, fields, ValidationError,validate
 class GeoRangeSchema(Schema):
     longitude = fields.Float(validate=validate.Range(min=-180, max=180)) # Degree from -180° ~ 180°
     latitude = fields.Float(validate=validate.Range(min=-90, max=90)) # Degree from -90° ~ 90°
-    radius = fields.Float(validate=validate.Range(min=0, max=6378.1))  # Kilometers from  0km ~ 6378.1km (the radius of Earth)
+    radius = fields.Float(validate=validate.Range(min=0, max=10000))  # Kilometers from  0km ~ 10000km
 
 
 if __name__ == '__main__':

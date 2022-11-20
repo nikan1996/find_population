@@ -40,7 +40,7 @@ def test_pop_pop_in_area(client):
     assert "Must be greater than or equal to -90 and less than or equal to 90." in response.get_data(as_text=True)
 
     response = client.get("/api/v1/pop_in_area?longitude=155&latitude=55&radius=-50")
-    assert "Must be greater than or equal to 0 and less than or equal to 6378.1." in response.get_data(as_text=True)
+    assert "Must be greater than or equal to 0 and less than or equal to 10000." in response.get_data(as_text=True)
 
     response = client.get("/api/v1/pop_in_area?longitude=155&latitude=55&radius=3")
     data = response.get_data(as_text=True)
@@ -50,7 +50,7 @@ def test_pop_pop_in_area(client):
     for i in range(10):
         random_longitude = random.uniform(-180, 180)
         random_latitude = random.uniform(-90, 90)
-        random_radius = random.uniform(0, 6371)
+        random_radius = random.uniform(0, 10000)
         response = client.get(
             f"/api/v1/pop_in_area?longitude={random_longitude}&latitude={random_latitude}&radius={random_radius}")
         data = response.get_data(as_text=True)

@@ -47,16 +47,16 @@ def pop_in_area_mock1():
     """
     # parameter validation
     try:
-        latitude = float(request.args.get('latitude'))
-        longitude = float(request.args.get('longitude'))
-        radius = float(request.args.get('radius'))
+        latitude = request.args.get('latitude')
+        longitude = request.args.get('longitude')
+        radius = request.args.get('radius')
         required_data = {
             "latitude": latitude,
             "longitude": longitude,
             "radius": radius,
         }
         GeoRangeSchema().load(required_data)
-        population = get_population_within_area_mock(latitude,longitude, radius)
+        population = get_population_within_area_mock(float(latitude),float(longitude), float(radius))
         logger.info(f'Accept request:{request.full_path}, population result:{population}')
         return jsonify({
             'population': population,
@@ -75,16 +75,16 @@ def pop_in_area_v1():
     """
     # parameter validation
     try:
-        latitude = float(request.args.get('latitude'))
-        longitude = float(request.args.get('longitude'))
-        radius = float(request.args.get('radius'))
+        latitude = request.args.get('latitude')
+        longitude = request.args.get('longitude')
+        radius = request.args.get('radius')
         required_data = {
             "latitude": latitude,
             "longitude": longitude,
             "radius": radius,
         }
         GeoRangeSchema().load(required_data)
-        population = get_population_within_area(latitude,longitude, radius)
+        population = get_population_within_area_mock(float(latitude),float(longitude), float(radius))
         logger.info(f'Accept request:{request.full_path}, population result:{population}')
         return jsonify({
             'population': population,

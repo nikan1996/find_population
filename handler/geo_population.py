@@ -73,8 +73,8 @@ def get_population_within_area( latitude,longitude, radius):
     :param radius:
     :return: population size
     """
-    location = GeoCoordinate(latitude,longitude)
-    min_lon,max_lon,min_lat,max_lat = location.get_boundingbox_within_area(radius)
+    location = GeoCoordinate(float(latitude),float(longitude))
+    min_lon,max_lon,min_lat,max_lat = location.get_boundingbox_within_area(float(radius))
     from api import app,db
     population  = 0
     with app.app_context():
