@@ -47,12 +47,13 @@ class GeoCoordinate:
             delta_lon = arcsin((sin(rad_radius) / cos(self.latitude)))
             min_lon = self.longitude - delta_lon
             max_lon = self.longitude + delta_lon
-            if min_lon < self.MIN_LON: min_lon += 2 * math.pi
+            if min_lon < self.MIN_LON:
+                min_lon += 2 * math.pi
             if max_lon > self.MAX_LON:
                 max_lon -= 2 * math.pi
         else:
             min_lat = max(min_lat, self.MIN_LAT)
-            max_lat = max(max_lat, self.MIN_LAT)
+            max_lat = min(max_lat, self.MAX_LAT)
             min_lon = self.MIN_LON
             max_lon = self.MAX_LON
         return math.degrees(min_lon),math.degrees(max_lon),math.degrees(min_lat),math.degrees(max_lat)
