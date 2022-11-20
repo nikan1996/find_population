@@ -5,9 +5,10 @@ Design and implement a web API in Python to find the population living within an
 Now I've implemented a simple web API, but the population size will be returned randomly.
 
 Two endpoints:
-/api/v1/mock/pop_in_area: Return random population.
 
-/api/v1/pop_in_area: Return real population. (Now the data are generated randomly)
+1. /api/v1/mock/pop_in_area: Return random population.
+
+2. /api/v1/pop_in_area: Return real population. (Now the data are generated randomly)
 
 ## Next plan
 
