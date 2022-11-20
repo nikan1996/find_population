@@ -84,7 +84,7 @@ def pop_in_area_v1():
             "radius": radius,
         }
         GeoRangeSchema().load(required_data)
-        population = get_population_within_area_mock(float(latitude),float(longitude), float(radius))
+        population = get_population_within_area(float(latitude),float(longitude), float(radius))
         logger.info(f'Accept request:{request.full_path}, population result:{population}')
         return jsonify({
             'population': population,
