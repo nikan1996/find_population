@@ -13,7 +13,7 @@ There are two endpoints:
 ## Next plan
 
 - [X] Download high precision geo-population data.
-- [X] Parse these data and store them into database such as sqlite, redis or other products.
+- [X] Parse these data and store them into database such as sqlite, redis or other products (Now the data in database are generated randomly because the real data is too large > 200GB).
 - [X] Find the population within an area.
 - [ ] Dealing with Poles and the meridian at 180° longitude.
 - [ ] Try Geohash/Google s2 to encode spherical geometry.
