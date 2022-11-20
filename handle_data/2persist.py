@@ -7,9 +7,11 @@ from api import app, db
 from models import PopulationRecord
 
 
-def create_db_table():
+def create_db_table(drop=True):
     try:
         with app.app_context():
+            if drop:
+                db.drop_all()
             db.create_all()
     except:
         pass

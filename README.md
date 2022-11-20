@@ -23,6 +23,8 @@ There are two endpoints:
 # Dev
 ```shell
 pip install -r requirements.txt
+# Generate some data and write them into sqlite. This operation takes about 15minutes.
+python -m handle_data.2persist
 flask --app api run
 ```
 
