@@ -6,6 +6,7 @@ Now I've implemented a simple web API, but the population size will be returned 
 
 Two endpoints:
 /api/v1/mock/pop_in_area: Return random population.
+
 /api/v1/pop_in_area: Return real population. (Now the data are generated randomly)
 
 ## Next plan
