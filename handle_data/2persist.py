@@ -52,7 +52,7 @@ def persist_xyz_data_to_sqlite_mock():
     with app.app_context():
         for latitude in  tqdm(all_latitudes):
             for longitude in all_longitudes:
-                population = random.randint(0, 100000)
+                population = random.randint(0, 10000)
                 record = PopulationRecord(
                                     longitude=longitude,
                                     latitude=latitude,
