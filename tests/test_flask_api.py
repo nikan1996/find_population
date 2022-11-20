@@ -23,7 +23,7 @@ def client(flask_app):
     return flask_app.test_client()
 
 
-def test_pop_pop_in_area(client):
+def test_pop_in_area(client):
     response = client.get("/api/v1/pop_in_area")
     assert "Field may not be null" in response.get_data(as_text=True)
 
@@ -50,10 +50,10 @@ def test_pop_pop_in_area(client):
     for i in range(10):
         random_longitude = random.uniform(-180, 180)
         random_latitude = random.uniform(-90, 90)
-        random_radius = random.uniform(0, 10000)
+        random_radius = random.uniform(0, 500)
         response = client.get(
             f"/api/v1/pop_in_area?longitude={random_longitude}&latitude={random_latitude}&radius={random_radius}")
         data = response.get_data(as_text=True)
         json_data = json.loads(data)
         print(json_data)
-        assert json_data["population"] > 0
+        assert json_data["population"] >= 0
