@@ -23,8 +23,6 @@ https://ghsl.jrc.ec.europa.eu/documents/GHSL_Data_Package_2022.pdf
 
 https://redis.io/commands/geosearch/
 
-https://github.com/jfein/PyGeoTools
-
 http://janmatuschek.de/LatitudeLongitudeBoundingCoordinates
 
 
