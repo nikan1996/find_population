@@ -2,9 +2,9 @@
 Design and implement a web API in Python to find the population living within an area.
 
 # How do I implement it?
-Now I've implemented a simple web API, but the population size will be returned randomly.
+I've implemented a simple web API, but the population size will be returned randomly.
 
-Two endpoints:
+There are two endpoints:
 
 1. /api/v1/mock/pop_in_area: Return random population.
 
@@ -15,7 +15,9 @@ Two endpoints:
 - [X] Download high precision geo-population data.
 - [X] Parse these data and store them into database such as sqlite, redis or other products.
 - [X] Find the population within an area.
+- [ ] Dealing with Poles and the meridian at 180° longitude.
 - [ ] Try Geohash/Google s2 to encode spherical geometry.
+
 
 
 # Dev
