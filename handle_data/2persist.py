@@ -1,3 +1,4 @@
+import random
 import sqlite3
 
 from tqdm import tqdm
@@ -26,11 +27,11 @@ def persist_xyz_data_to_sqlite():
                 fields = line.split(' ')
                 longitude = float(fields[0])
                 latitude = float(fields[1])
-                population_density = float(fields[2])
+                population = float(fields[2])
                 record = PopulationRecord(
                     longitude=longitude,
                     latitude=latitude,
-                    population_density=population_density
+                    population=population
                 )
                 db.session.add(record)
                 count+=1
@@ -38,7 +39,27 @@ def persist_xyz_data_to_sqlite():
                 if count%3000 ==0:
                     db.session.commit()
     db.session.commit()
+def persist_xyz_data_to_sqlite_mock():
+    # Put all the population density data into the sqlite database
 
-
+    create_db_table()
+    import numpy as np
+    sample_numbers = int(90/0.015)
+    print(sample_numbers)
+    all_latitudes = np.linspace(-90, 90, num=sample_numbers)
+    print(all_latitudes)
+    all_longitudes = np.linspace(-180, 180, num=sample_numbers)
+    with app.app_context():
+        for latitude in  tqdm(all_latitudes):
+            for longitude in all_longitudes:
+                population = random.randint(0, 100000)
+                record = PopulationRecord(
+                                    longitude=longitude,
+                                    latitude=latitude,
+                                    population=population
+                                )
+                db.session.add(record)
+            db.session.commit()
 if __name__ == '__main__':
-    persist_xyz_data_to_sqlite()
+    # persist_xyz_data_to_sqlite()
+    persist_xyz_data_to_sqlite_mock()

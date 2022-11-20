@@ -1,4 +1,6 @@
 import sys
+import traceback
+
 from loguru import logger
 
 from flask import Flask, request, jsonify
@@ -37,24 +39,24 @@ def hello_world():
     return "<p>Hello, World!</p>"
 
 
-@app.route("/api/v1/pop_in_area", methods=['GET'])
-def pop_in_area_v1():
+@app.route("/api/v1/mock/pop_in_area", methods=['GET'])
+def pop_in_area_mock1():
     """
     get population by location and radius
     :return:
     """
     # parameter validation
     try:
-        longitude = request.args.get('longitude')
-        latitude = request.args.get('latitude')
-        radius = request.args.get('radius')
+        latitude = float(request.args.get('latitude'))
+        longitude = float(request.args.get('longitude'))
+        radius = float(request.args.get('radius'))
         required_data = {
-            "longitude": longitude,
             "latitude": latitude,
+            "longitude": longitude,
             "radius": radius,
         }
         GeoRangeSchema().load(required_data)
-        population = get_population_within_area_mock(longitude, latitude, radius)
+        population = get_population_within_area_mock(latitude,longitude, radius)
         logger.info(f'Accept request:{request.full_path}, population result:{population}')
         return jsonify({
             'population': population,
@@ -65,7 +67,35 @@ def pop_in_area_v1():
         return jsonify({
             'error_msg': error_message
         })
-
+@app.route("/api/v1/pop_in_area", methods=['GET'])
+def pop_in_area_v1():
+    """
+    get population by location and radius
+    :return:
+    """
+    # parameter validation
+    try:
+        latitude = float(request.args.get('latitude'))
+        longitude = float(request.args.get('longitude'))
+        radius = float(request.args.get('radius'))
+        required_data = {
+            "latitude": latitude,
+            "longitude": longitude,
+            "radius": radius,
+        }
+        GeoRangeSchema().load(required_data)
+        population = get_population_within_area(latitude,longitude, radius)
+        logger.info(f'Accept request:{request.full_path}, population result:{population}')
+        return jsonify({
+            'population': population,
+        })
+    except Exception as e:
+        error_message = str(e)
+        print(traceback.format_exc())
+        logger.error(f'Error in request:{request.full_path},msg:{error_message}')
+        return jsonify({
+            'error_msg': error_message
+        })
 
 @app.route("/api/v2/pop_in_area", methods=['GET'])
 def pop_in_area_v2():

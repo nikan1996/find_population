@@ -12,15 +12,15 @@ radians = math.radians
 
 
 class GeoCoordinate:
-    MIN_LAT = -90
-    MAX_LAT = 90
-    MIN_LON = -180
-    MAX_LON = 180
+    MIN_LAT = radians(-90)
+    MAX_LAT = radians(90)
+    MIN_LON = radians(-180)
+    MAX_LON = radians(180)
     EARTH_RADIUS = 6378.1  # kilometers
 
-    def __init__(self, longitude: float, latitude: float):
-        self.longitude = radians(longitude)
+    def __init__(self,  latitude: float,longitude: float):
         self.latitude = radians(latitude)
+        self.longitude = radians(longitude)
 
     def distance_to(self, another: GeoCoordinate):
         # return Great-circle distance
@@ -30,6 +30,7 @@ class GeoCoordinate:
             sin(self.latitude) * sin(another.latitude) + cos(self.latitude) * cos(another.latitude) * cos(
                 self.longitude - another.longitude))
         distance = delta_ * self.EARTH_RADIUS
+
         return distance
 
     def get_boundingbox_within_area(self, radius):
@@ -42,7 +43,7 @@ class GeoCoordinate:
         max_lat = self.latitude + rad_radius
 
         # Δlon = arcsin(sin(r)/cos(lat))
-        if min_lat > self.MIN_LAT and max_lat < self.MIN_LAT:
+        if min_lat > self.MIN_LAT and max_lat < self.MAX_LAT:
             delta_lon = arcsin((sin(rad_radius) / cos(self.latitude)))
             min_lon = self.longitude - delta_lon
             max_lon = self.longitude + delta_lon
@@ -54,27 +55,36 @@ class GeoCoordinate:
             max_lat = max(max_lat, self.MIN_LAT)
             min_lon = self.MIN_LON
             max_lon = self.MAX_LON
-        return min_lon,max_lon,min_lat,max_lat
+        return math.degrees(min_lon),math.degrees(max_lon),math.degrees(min_lat),math.degrees(max_lat)
 
-def get_population_within_area_mock(longitude, latitude, radius):
+def get_population_within_area_mock(latitude,longitude, radius):
     """
     :param longitude:
     :param latitude:
     :param radius:
     :return: population size
     """
-    return random.randint(0, 100000)
-def get_population_within_area(longitude, latitude, radius):
+    return int(random.randint(0, 100000))
+def get_population_within_area( latitude,longitude, radius):
     """
     :param longitude:
     :param latitude:
     :param radius:
     :return: population size
     """
-    return random.randint(0, 100000)
-    # location = GeoCoordinate(longitude,latitude)
-    # min_lon,max_lon,min_lat,max_lat = location.get_boundingbox_within_area(radius)
-    # with app.app_context():
+    location = GeoCoordinate(latitude,longitude)
+    min_lon,max_lon,min_lat,max_lat = location.get_boundingbox_within_area(radius)
+    from api import app,db
+    population  = 0
+    with app.app_context():
+        sql = f"SELECT * FROM population_record WHERE (latitude >= {min_lat} AND latitude <= {max_lat}) AND (longitude >= {min_lon} AND longitude <= {max_lon})"
+        result = db.engine.execute(sql)
+        for r in result:
+            population += r[2]
+    return int(population)
 
 
 
+if __name__ == '__main__':
+    population = get_population_within_area(48.8583, 2.2945,radius=500)
+    print(population)

@@ -4,11 +4,15 @@ Design and implement a web API in Python to find the population living within an
 # How I implement it?
 Now I've implemented a simple web API, but the population size will be returned randomly.
 
+Two endpoints:
+/api/v1/mock/pop_in_area: Return random population.
+/api/v1/pop_in_area: Return real population. (Now the data are generated randomly)
+
 ## Next plan
 
 - [X] Download high precision geo-population data.
-- [ ] [Working] Parse these data and store them into database such as sqlite, redis or other products.
-- [ ] [Working] Find the population whinin an area.
+- [X] Parse these data and store them into database such as sqlite, redis or other products.
+- [X] Find the population within an area.
 - [ ] Try Geohash/Google s2 to encode spherical geometry.
 
 
@@ -20,8 +24,11 @@ flask --app api run
 
 # Test
 ```shell
+# There are some unit tests to confirm everything is fine. Type `pytest` to pass all tests.
 pytest
 ```
+
+# Deploy
 
 # Reference
 https://halfrost.com/go_spatial_search/
