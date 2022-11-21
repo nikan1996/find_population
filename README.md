@@ -1,5 +1,4 @@
-# Assignment Requirement
-Design and implement a web API in Python to find the population living within an area.
+Find the population living within an area.
 
 # How do I implement it?
 I've implemented a simple web API, but the population size will be returned randomly.
