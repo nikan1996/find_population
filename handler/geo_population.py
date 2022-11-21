@@ -76,8 +76,10 @@ def get_population_within_area( latitude,longitude, radius):
     location = GeoCoordinate(float(latitude),float(longitude))
     min_lon,max_lon,min_lat,max_lat = location.get_boundingbox_within_area(float(radius))
     from api import app,db
-    population  = 0
+    population = 0
     with app.app_context():
+        # TODO: the sql only find the points in bounding box, but the points may not meet the distance(radius) requirement.
+        #  We need to calculate the distance from point to the location and only keep those eligible points.
         sql = f"SELECT * FROM population_record WHERE (latitude >= {min_lat} AND latitude <= {max_lat}) AND (longitude >= {min_lon} AND longitude <= {max_lon})"
         result = db.engine.execute(sql)
         for r in result:
