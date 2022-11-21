@@ -18,7 +18,6 @@ There are two endpoints:
 - [ ] Try Geohash/Google s2 to encode spherical geometry.
 
 
-
 # Dev
 ```shell
 pip install -r requirements.txt

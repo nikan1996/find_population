@@ -45,7 +45,7 @@ def test_pop_in_area(client):
     response = client.get("/api/v1/pop_in_area?longitude=155&latitude=55&radius=3")
     data = response.get_data(as_text=True)
     json_data = json.loads(data)
-    assert json_data["population"] > 0
+    assert json_data["population"] >= 0
     print(json_data["population"])
     for i in range(10):
         random_longitude = random.uniform(-180, 180)

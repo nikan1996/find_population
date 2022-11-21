@@ -1,13 +1,9 @@
-from pprint import pprint
+from marshmallow import ValidationError
 
-from marshmallow import Schema, fields, ValidationError,validate
-class GeoRangeSchema(Schema):
-    longitude = fields.Float(validate=validate.Range(min=-180, max=180)) # Degree from -180° ~ 180°
-    latitude = fields.Float(validate=validate.Range(min=-90, max=90)) # Degree from -90° ~ 90°
-    radius = fields.Float(validate=validate.Range(min=0, max=10000))  # Kilometers from  0km ~ 10000km, why 10000?  The circumference of Earth would be 40000.
+from schema import GeoRangeSchema
 
 
-if __name__ == '__main__':
+def test_geo_range_schema():
     geo_range_data1 = [
         {"longitude": 165, "latitude": 85,"radius":50},
         {"longitude": 180, "latitude": 85, "radius": 50},
@@ -51,4 +47,3 @@ if __name__ == '__main__':
     except ValidationError as err:
         assert str(err) == "{3: {'radius': ['Must be greater than or equal to 0 and less than or equal to 10000.']}, 4: {'radius': ['Must be greater than or equal to 0 and less than or equal to 10000.']}}"
         print(err.messages)
-        # pprint(err.messages)
